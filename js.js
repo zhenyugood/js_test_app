@@ -28,7 +28,6 @@ function addNewButton(){
 }
 
 
-
 function removeButton(i){
  var elem = document.getElementById("div"+i);
           elem.parentNode.removeChild(elem);
