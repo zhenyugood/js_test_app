@@ -1,21 +1,24 @@
+"use strict";
+let i=0;
+const textSearch=document.getElementById("textSearch");
+const myDiv=document.getElementById("myDiv");
+const add = document.getElementById("add");
+const text= document.getElementById("text");
 
-var i=0;
-
-    function search(){
+function search(){
  //document.getElementById("div0").style.display="none"
         
-    var getdiv = document.getElementById("myDiv");  
-    var outdiv = getdiv.getElementsByTagName("div");  
-    for(var i=0;i<outdiv.length;i++){
-       var inText=outdiv[i].getElementsByTagName("input"); 
-       var reg=new RegExp(document.getElementById("textSearch").value);
-       for(var j=0;j<inText.length;j++){
-       if(inText[j].type=="text"&&reg.test(inText[j].value)){
+const outdiv =  myDiv.getElementsByTagName("div");  
+  for(let i=0;i<outdiv.length;i++){
+    const inText=outdiv[i].getElementsByTagName("input"); 
+    const reg=new RegExp(textSearch.value);
+      for(let j=0;j<inText.length;j++){
+        if(inText[j].type==="text"&&reg.test(inText[j].value)){
           outdiv[i].style.display="";
-    }
-       else if(inText[j].type=="text"&&document.getElementById("textSearch").value==" ") outdiv[i].style.display="";
-    else outdiv[i].style.display="none";
-  }
+         }
+         else if(inText[j].type==="text"&&textSearch.value===" ") outdiv[i].style.display="";
+           else outdiv[i].style.display="none";
+         }
     }
 
    // for (i = 0; i < outdiv.length; i++) {  
@@ -26,9 +29,8 @@ var i=0;
 }
 
 function setVisible(){
-   var getdiv = document.getElementById("myDiv");  
-    var outdiv = getdiv.getElementsByTagName("div");  
-   for(var i=0;i<outdiv.length;i++){
+    const outdiv = myDiv.getElementsByTagName("div");  
+   for(let i=0;i<outdiv.length;i++){
       outdiv[i].style.display="";
     }
 }
@@ -36,23 +38,24 @@ function setVisible(){
 
 function addNewButton(){
   //  myId.push(i);
-    var myText = text.value;
+    const myText = text.value;
     clearText();
-    var inputButton =document.createElement("input");
-    var inputText =document.createElement("input");
+    const inputButton =document.createElement("input");
+    const inputText =document.createElement("input");
     inputButton.type="button";
     inputButton.id="button"+i;
     inputButton.value="delete";
     inputText.type="text";
     inputText.id="text"+i;
     inputText.value=myText;
-    var div = document.createElement("div");
+    const div = document.createElement("div");
     div.innerHTML="<br/>";  
     div.id="div"+i;           
     myDiv.appendChild(div);
   //  var mydiv=document.getElementById("div"+i);
     div.appendChild(inputButton);
     div.appendChild(inputText);
+    i++;
     inputButton.onclick=function(){
     div.parentNode.removeChild(div);
     };
@@ -60,14 +63,12 @@ function addNewButton(){
 
 
 function clearText(){
-  var text= document.getElementById("text");
   text.value="";
 }
 
 
 function keyPress(){
-  var e = window.event || arguments.callee.caller.arguments[0];
-         if (e && e.keyCode == 13 ) {
+         if (event.keyCode == 13 ) {
             addNewButton();
          }
 }
@@ -80,13 +81,9 @@ function keyPress(){
 
 
 function prepareEventHandlers() {
-    var add = document.getElementById("add");
-    var text= document.getElementById("text");
-    var textSearch= document.getElementById("textSearch");
     textSearch.addEventListener("click",clearText);
     textSearch.addEventListener("keyup",search);
     text.addEventListener("keyup",keyPress);
-
     add.onclick =  function() {
     addNewButton();  
 /*    myDelete[i] = document.getElementById("button"+i);
@@ -94,13 +91,11 @@ function prepareEventHandlers() {
 myDelete[i].onclick=function(){
          removeButton(i);
         };})(i) */
-  i++;
     };
 } 
 
 
   
 window.onload = function() {
-    // prep anything we need to
     prepareEventHandlers();
 };
