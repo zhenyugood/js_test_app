@@ -1,5 +1,5 @@
 "use strict";
-let i=0;
+let INDEX=0;
 const textSearch=document.getElementById("textSearch");
 const myDiv=document.getElementById("myDiv");
 const add = document.getElementById("add");
@@ -8,17 +8,17 @@ const text= document.getElementById("text");
 function search(){
  //document.getElementById("div0").style.display="none"
         
-const outdiv =  myDiv.getElementsByTagName("div");  
-  for(let i=0;i<outdiv.length;i++){
-    const inText=outdiv[i].getElementsByTagName("input"); 
+  const li =  myDiv.getElementsByTagName("li");  
+  for(let i=0;i<li.length;i++){
+    const inText=li[i].getElementsByTagName("input"); 
     const reg=new RegExp(textSearch.value);
       for(let j=0;j<inText.length;j++){
         if(inText[j].type==="text"&&reg.test(inText[j].value)){
-          outdiv[i].style.display="";
+          li[i].style.display="";
          }
-         else if(inText[j].type==="text"&&textSearch.value===" ") outdiv[i].style.display="";
-           else outdiv[i].style.display="none";
-         }
+         else if(inText[j].type==="text"&&textSearch.value===" ") li[i].style.display="";
+           else li[i].style.display="none";
+  }
     }
 
    // for (i = 0; i < outdiv.length; i++) {  
@@ -29,9 +29,9 @@ const outdiv =  myDiv.getElementsByTagName("div");
 }
 
 function setVisible(){
-    const outdiv = myDiv.getElementsByTagName("div");  
-   for(let i=0;i<outdiv.length;i++){
-      outdiv[i].style.display="";
+    const li = myDiv.getElementsByTagName("li");  
+   for(let i=0;i<li.length;i++){
+      li[i].style.display="";
     }
 }
 
@@ -43,21 +43,20 @@ function addNewButton(){
     const inputButton =document.createElement("input");
     const inputText =document.createElement("input");
     inputButton.type="button";
-    inputButton.id="button"+i;
+    inputButton.id="button"+INDEX;
     inputButton.value="delete";
     inputText.type="text";
-    inputText.id="text"+i;
+    inputText.id="text"+INDEX;
     inputText.value=myText;
-    const div = document.createElement("div");
-    div.innerHTML="<br/>";  
-    div.id="div"+i;           
-    myDiv.appendChild(div);
+    const li = document.createElement("li");
+    li.id="li"+INDEX;           
+    myDiv.appendChild(li);
   //  var mydiv=document.getElementById("div"+i);
-    div.appendChild(inputButton);
-    div.appendChild(inputText);
-    i++;
+    li.appendChild(inputButton);
+   li.appendChild(inputText);
+    INDEX++;
     inputButton.onclick=function(){
-    div.parentNode.removeChild(div);
+    li.parentNode.removeChild(li);
     };
 }
 
