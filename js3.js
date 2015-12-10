@@ -5,14 +5,28 @@ var HTMLEditer = function(){
   this.myDiv = document.getElementById("myDiv");
   this.addButton = document.getElementById("addButton");
   this.textInput = document.getElementById("textInput");
+   //call back functions are as fallowed
+  
+  this.addingNewButton = function(myEditer,cb){
+    setTimeout(function(){
+      console.log("button added");
+      cb(myEditer);
+    },2000);
+  };
+  
+  this.searching = function(cb){
+    setTimeout(function(){
+      cb();
+      console.log("seaching");
+    },2000);
+  };
   
   this.clearMyInputText = function(){
     this.textInput.value = "";
   };
   
-  this.addNewButton = function(){
+    this.addNewButton = function(myEditer){
     var myInputText = this.textInput.value;
-//    this.clearMyInputTextCallBack(this.clearMyInputText());
     var newButton = document.createElement("input");
     var newText = document.createElement("input");
     newButton.type = "button";
@@ -21,7 +35,6 @@ var HTMLEditer = function(){
     newText.type = "text";
     newText.id = "text"+this.INDEX;
     newText.value = myInputText;
-    newText.style.fontSize = "2em";
     var li = document.createElement("li");
     li.id = "li"+this.INDEX;           
     this.myDiv.appendChild(li);
@@ -31,6 +44,7 @@ var HTMLEditer = function(){
     newButton.onclick=function(){
     li.parentNode.removeChild(li);
     };
+    myEditer.clearMyInputText();
   };
   
   this.search = function(){
@@ -44,17 +58,7 @@ var HTMLEditer = function(){
     }
   };
   
-  //call back functions are as fallowed
-  this.clearMyInputTextCallBack = function(cb){
-    setTimeout(function(){
-      cb();
-    },2000);
-  };
-  this.addingNewButton = function(cb){
-    setTimeout(function(){
-      cb();
-    },2000);
-  };
+ 
   
 };
 
@@ -63,9 +67,12 @@ var HTMLEditer = function(){
 function prepareEventHandlers() {
   var myEditer = new  HTMLEditer();
   myEditer.addButton.onclick = function(){
-  myEditer.addingNewButton(myEditer.addNewButton());
+  myEditer.addingNewButton(myEditer,myEditer.addNewButton);
   };
-  myEditer.textSearch.addEventListener("keyup",myEditer.search);
+ myEditer.textSearch.addEventListener("keydown",function(){
+   myEditer.searching(myEditer.search);
+   });
+
 }
 
 
