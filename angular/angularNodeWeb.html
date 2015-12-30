@@ -1,0 +1,16 @@
+<html ng-app="nodeApp">
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script src="js3.js"></script>
+</head>
+<body ng-controller="nodeCtrl">
+  input: <input ng-model="inputText">
+  Search: <input ng-model="query">
+<button ng-click="addButton()" >add</button><br>	
+<ul class="buttons">
+  <li ng-repeat="button in buttons | filter:query ">
+    <button ng-click="remove($index)">delete</button> : {{button}}
+  </li>
+</ul>
+</body>
+</html>
